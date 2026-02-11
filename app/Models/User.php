@@ -18,7 +18,15 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'user_type',
+        'first_name',
+        'last_name',
+        'gender',
+        'dob',
+        'race',
+        'religion',
+        'address',
+        'phone',
         'email',
         'password',
     ];
@@ -44,5 +52,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function employmentDetail()
+    {
+        return $this->hasOne(EmploymentDetail::class);
+    }
+
+    public function leaves()
+    {
+        return $this->hasMany(Leave::class);
+    }
+
+    public function managedDepartments()
+    {
+        return $this->hasMany(Department::class, 'manager_id');
     }
 }
