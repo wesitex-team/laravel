@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [App\Http\Controllers\LoginController::class, 'login'])->name('login.submit');
-Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [App\Http\Controllers\LogoutController::class, 'logout'])->name('logout');
 
 // Dashboard Routes
 Route::middleware(['auth'])->group(function () {
