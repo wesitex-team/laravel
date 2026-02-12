@@ -74,7 +74,7 @@
                     </svg>
                 </button>
                 <ul class="header-nav d-none d-lg-flex">
-                    <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('employees.dashboard') }}">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Reports</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Applications</a></li>
                 </ul>
