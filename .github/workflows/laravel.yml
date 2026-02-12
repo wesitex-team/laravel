@@ -1,0 +1,56 @@
+name: Laravel Staging & Main Deployment
+
+on:
+  push:
+    branches:
+      - staging
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+    # Ensure this runs when merging staging to main
+
+jobs:
+  laravel-test-deploy:
+    runs-on: [self-hosted, Windows, X64]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+          coverage: none
+
+      - name: Check PHP Version
+        run: php -v
+
+      - name: Copy .env
+        run: copy .env.ci .env
+
+      - name: Create Database
+        run: |
+          mkdir database
+          type nul > database/database.sqlite
+        continue-on-error: true # Directory might already exist
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Generate Key
+        run: php artisan key:generate
+
+      - name: Install Frontend Dependencies
+        run: npm install
+
+      - name: Build Frontend Assets
+        run: npm run build
+
+      - name: Directory Permissions
+        run: icacls storage /grant Everyone:F /t /q
+        continue-on-error: true # Might fail if permissions are restricted, but worth trying on Windows
+
+      - name: Execute Tests (Unit and Feature tests)
+        run: php artisan test

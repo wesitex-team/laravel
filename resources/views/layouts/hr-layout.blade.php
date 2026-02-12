@@ -81,7 +81,7 @@
                     </svg>
                 </button>
                 <ul class="header-nav d-none d-lg-flex">
-                    <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('hr.dashboard') }}">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Users</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
                 </ul>
