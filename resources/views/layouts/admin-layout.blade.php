@@ -46,7 +46,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('admin.users.index') }}">
                     <svg class="nav-icon">
                         <use xlink:href="https://cdn.jsdelivr.net/npm/@coreui/icons@3.0.1/sprites/free.svg#cil-people"></use>
                     </svg> Users
